@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Rotating Grey Cube</title>
+<style>
+  /* Container to center the cube */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    perspective: 800px;
+  }
+
+  body{
+    background: black;
+  }
+
+  /* Cube wrapper to hold the faces */
+  .cube {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    transform-style: preserve-3d;
+  }
+
+  /* Cube face styling */
+  .cube-face {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transition: filter 0.1s;
+  }
+
+  /* Position each face in 3D space */
+  .front  { transform: translateZ(50px); }
+  .back   { transform: rotateY(180deg) translateZ(50px); }
+  .right  { transform: rotateY(90deg) translateZ(50px); }
+  .left   { transform: rotateY(-90deg) translateZ(50px); }
+  .top    { transform: rotateX(90deg) translateZ(50px); }
+  .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="cube" id="cube">
+      <div class="cube-face front" id="front"></div>
+      <div class="cube-face back" id="back"></div>
+      <div class="cube-face right" id="right"></div>
+      <div class="cube-face left" id="left"></div>
+      <div class="cube-face top" id="top"></div>
+      <div class="cube-face bottom" id="bottom"></div>
+    </div>
+  </div>
+
+  <script>
+    const cube = document.getElementById("cube");
+    const faces = {
+      front: document.getElementById("front"),
+      back: document.getElementById("back"),
+      right: document.getElementById("right"),
+      left: document.getElementById("left"),
+      top: document.getElementById("top"),
+      bottom: document.getElementById("bottom"),
+    };
+
+    let angleX = 0;
+    let angleY = 0;
+
+    function rotateCube() {
+      angleX += 1;
+      angleY += 1;
+
+      cube.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+      updateLighting();
+    }
+
+    function updateLighting() {
+      const lightIntensity = {
+        front: Math.max(0.6, Math.cos(angleY * Math.PI / 180)),
+        back: Math.max(0.6, Math.cos((angleY + 180) * Math.PI / 180)),
+        right: Math.max(0.6, Math.cos((angleY + 90) * Math.PI / 180)),
+        left: Math.max(0.6, Math.cos((angleY - 90) * Math.PI / 180)),
+        top: Math.max(0.6, Math.cos(angleX * Math.PI / 180)),
+        bottom: Math.max(0.6, Math.cos((angleX + 180) * Math.PI / 180))
+      };
+
+      // Apply brightness to each face based on light intensity
+      for (let face in faces) {
+        const intensity = lightIntensity[face];
+        faces[face].style.filter = `brightness(${intensity})`;
+      }
+    }
+
+    setInterval(rotateCube, 20);
+  </script>
+</body>
+</html>
