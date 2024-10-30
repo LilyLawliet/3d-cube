@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3D Rotating Grey Cube</title>
 <style>
-  /* Container to center the cube */
   .container {
     display: flex;
     justify-content: center;
@@ -18,7 +17,6 @@
     background: black;
   }
 
-  /* Cube wrapper to hold the faces */
   .cube {
     position: relative;
     width: 100px;
@@ -26,7 +24,6 @@
     transform-style: preserve-3d;
   }
 
-  /* Cube face styling */
   .cube-face {
     position: absolute;
     width: 100px;
@@ -36,7 +33,6 @@
     transition: filter 0.1s;
   }
 
-  /* Position each face in 3D space */
   .front  { transform: translateZ(50px); }
   .back   { transform: rotateY(180deg) translateZ(50px); }
   .right  { transform: rotateY(90deg) translateZ(50px); }
@@ -90,7 +86,6 @@
         bottom: Math.max(0.6, Math.cos((angleX + 180) * Math.PI / 180))
       };
 
-      // Apply brightness to each face based on light intensity
       for (let face in faces) {
         const intensity = lightIntensity[face];
         faces[face].style.filter = `brightness(${intensity})`;
