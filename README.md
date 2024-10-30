@@ -27,3 +27,8 @@ Angles are converted to radians (Math.PI / 180), which JavaScript’s trigonomet
 Minimum Brightness: Math.max(0.6, ...) keeps the brightness at least 0.6, so faces are never too dark.
 <b>Dynamic Brightness Application:</b>
 For each face, faces[face].style.filter = ... sets the CSS filter: brightness() based on the calculated intensity. This makes faces closer to the viewer brighter and faces further away dimmer, simulating a light source.</h3>
+
+<h1>5. Starting the Animation</h1>
+<br>
+<h3><b>Purpose:</b> Calls rotateCube every 20 milliseconds, which keeps the cube rotating and lighting updated. <br>
+setInterval: Runs rotateCube at intervals, creating the appearance of a continuous rotation with dynamic shading.</h3>
